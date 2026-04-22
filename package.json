@@ -1,0 +1,12 @@
+{
+  "name": "cypress-agenda-contatos",
+  "version": "1.0.0",
+  "description": "Testes E2E com Cypress para a Agenda de Contatos",
+  "scripts": {
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
+  },
+  "devDependencies": {
+    "cypress": "^13.0.0"
+  }
+}
