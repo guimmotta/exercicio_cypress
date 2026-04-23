@@ -1,27 +1,40 @@
-# Testes E2E - Agenda de Contatos
+# exercicio_cypress
 
-Projeto de testes E2E com Cypress para a aplicação [Agenda de Contatos](https://ebac-agenda-contatos-tan.vercel.app/).
+End-to-end (E2E) testing project using **Cypress** for the [Agenda de Contatos](https://ebac-agenda-contatos-tan.vercel.app/) application.
 
-## Instalação
+## 📋 About
+
+This project covers the full user flow of a contact management app, testing the three main features: adding, editing, and deleting contacts.
+
+## 🧪 What is tested
+
+- **Create** — adds a new contact and verifies it appears in the list
+- **Create** — checks that form fields are cleared after submission
+- **Create** — verifies the contact counter increments
+- **Update** — opens the edit form and saves updated data
+- **Delete** — removes a contact and verifies it no longer exists
+- **Delete** — checks the header counter decrements after removal
+
+## 🛠️ Technologies
+
+- Cypress 13
+- Node.js
+- JavaScript
+
+## ▶️ Running the tests
 
 ```bash
 npm install
-```
 
-## Executar os testes
+# Headless (terminal)
+npm run cypress:run
 
-Interface gráfica:
-```bash
+# Interactive UI
 npm run cypress:open
 ```
 
-Terminal (headless):
-```bash
-npm run cypress:run
-```
+## 📁 Key files
 
-## Testes cobertos
-
-- **Inclusão**: adicionar contato, limpar campos, incrementar contador
-- **Alteração**: abrir edição, salvar dados editados
-- **Remoção**: deletar contato, atualizar contador no header
+- `cypress/e2e/agenda.cy.js` — all E2E test specs
+- `cypress/support/commands.js` — custom command `adicionarContato()`
+- `cypress.config.js` — base URL configuration
