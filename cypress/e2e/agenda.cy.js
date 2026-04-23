@@ -93,19 +93,20 @@ describe('Agenda de Contatos', () => {
       })
     })
 
-    it('Deve atualizar o contador no cabeçalho após remoção', () => {
-      // Extrai apenas o número do texto "X contatos na agenda"
-      cy.get('header h2').invoke('text').then(textoAntes => {
-        const totalAntes = parseInt(textoAntes.match(/\d+/)[0])
+it('Deve atualizar o contador no cabeçalho após remoção', () => {
+  // Conta os contatos visíveis na tela como fonte de verdade
+  cy.get('.contato').then(contatosAntes => {
+    const totalAntes = contatosAntes.length
 
-        cy.get('.contato').first().find('button.delete').click()
+    cy.get('.contato').first().find('button.delete').click()
 
-        cy.get('header h2').invoke('text').then(textoDepois => {
-          const totalDepois = parseInt(textoDepois.match(/\d+/)[0])
-          expect(totalDepois).to.eq(totalAntes - 1)
-        })
-      })
-    })
+    // Verifica que a lista diminuiu em 1
+    cy.get('.contato').should('have.length', totalAntes - 1)
+
+    // Verifica que o header reflete o novo número
+    cy.get('header h2').should('contain', totalAntes - 1)
+  })
+})
 
   })
 
