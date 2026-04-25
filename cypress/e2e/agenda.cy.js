@@ -1,13 +1,7 @@
 describe('Agenda de Contatos', () => {
 
-  beforeEach(() => {
-    cy.visit('/')
-  })
-
-  // ───────────────────────────────────────────
-  // INCLUSÃO
-  // ───────────────────────────────────────────
   describe('Inclusão de contato', () => {
+    beforeEach(() => cy.visit('/'))
 
     it('Deve adicionar um novo contato com sucesso', () => {
       cy.get('input[placeholder="Nome"]').type('João Teste')
@@ -40,13 +34,10 @@ describe('Agenda de Contatos', () => {
         cy.get('.contato').should('have.length', totalAntes + 1)
       })
     })
-
   })
 
-  // ───────────────────────────────────────────
-  // ALTERAÇÃO
-  // ───────────────────────────────────────────
   describe('Alteração de contato', () => {
+    beforeEach(() => cy.visit('/'))
 
     it('Deve abrir o formulário de edição ao clicar em Editar', () => {
       cy.get('.contato').first().find('button.edit').click()
@@ -61,7 +52,6 @@ describe('Agenda de Contatos', () => {
       cy.get('input[placeholder="E-mail"]').clear().type('editado@teste.com')
       cy.get('input[placeholder="Telefone"]').clear().type('11911112222')
 
-      // Usa seletor genérico de submit pois o botão pode mudar de classe no modo edição
       cy.get('form button[type="submit"]').click()
 
       cy.get('.contato').first().within(() => {
@@ -69,13 +59,10 @@ describe('Agenda de Contatos', () => {
         cy.get('ul li').eq(2).should('contain', 'editado@teste.com')
       })
     })
-
   })
 
-  // ───────────────────────────────────────────
-  // REMOÇÃO
-  // ───────────────────────────────────────────
   describe('Remoção de contato', () => {
+    beforeEach(() => cy.visit('/'))
 
     it('Deve remover um contato ao clicar em Deletar', () => {
       cy.get('.contato').first().find('ul li').eq(0).invoke('text').then(nomeContato => {
@@ -93,21 +80,16 @@ describe('Agenda de Contatos', () => {
       })
     })
 
-it('Deve atualizar o contador no cabeçalho após remoção', () => {
-  // Conta os contatos visíveis na tela como fonte de verdade
-  cy.get('.contato').then(contatosAntes => {
-    const totalAntes = contatosAntes.length
+    it('Deve atualizar o contador no cabeçalho após remoção', () => {
+      cy.get('.contato').then(contatosAntes => {
+        const totalAntes = contatosAntes.length
 
-    cy.get('.contato').first().find('button.delete').click()
+        cy.get('.contato').first().find('button.delete').click()
 
-    // Verifica que a lista diminuiu em 1
-    cy.get('.contato').should('have.length', totalAntes - 1)
-
-    // Verifica que o header reflete o novo número
-    cy.get('header h2').should('contain', totalAntes - 1)
-  })
-})
-
+        cy.get('.contato').should('have.length', totalAntes - 1)
+        cy.get('header h2').should('contain', totalAntes - 1)
+      })
+    })
   })
 
 })
